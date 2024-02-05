@@ -1,3 +1,5 @@
+
+
 const calculateMyAge = (birthYear: number):
     number => {
         return new Date(Date.now()).getFullYear() - birthYear
