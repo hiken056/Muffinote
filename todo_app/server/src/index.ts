@@ -7,7 +7,7 @@ import express from 'express'
 const app = express(); //express object
 
 app.get('/', (request, response) => { //get method (route, request, response)
-    response.send('<h1>Hello World!!</h1>')
+    response.send('<h1>Hello World</h1>')
 });
 
 // LISTEN TO SOME PORT
