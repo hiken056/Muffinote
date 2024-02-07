@@ -7,3 +7,10 @@ CRUD => CREATE READ UPDATE DELETE
 /:uniqueId => read (get) => send the node related to this uniqueId
 /:uniqueId => update (post/put/patch) => update the node related to this uniqueId
 /:uniqueId => delete (delete) => delete the node related to this uniqueId
+
+
+react
+
+axios.post()
+fetch.post()
+

@@ -8,13 +8,19 @@ import express from "express";
 
 const app = express(); //express object
 
-//app.use(express.json());
-//app.use(express.urlencoded({extended: false}));
-
 //using the same MIDDLEWARE FUNCTION FOR EVERY ENDPOINT
 
 //MIDDLEWARE FUNTION
-app.use((req, res, next) => {
+
+//this will parse post request coming from fetch.post() method
+app.use(express.json());
+
+//this will parse post request coming from html form
+app.use(express.urlencoded({extended: false}));
+
+
+//MIDDLEWARE FUNTION - cum funtioneaza
+/* app.use((req, res, next) => {
     //read the data that we want to add to req.body
 
     req.on("data", (chunk) => {
@@ -23,6 +29,8 @@ app.use((req, res, next) => {
       next();
     });
   })
+ */
+
 
 app.post(
   "/",
