@@ -1,11 +1,14 @@
 // CREATE A SERVER
 
-//comenzi pana aici: npm init, tsc --init, npm install express --save,  npm i @types/express --save-dev,  npm i @types/node --save-dev
+//comenzi pana aici: npm init, tsc --init, npm install express --save,  npm i @types/express --save-dev,
+//  npm i @types/node --save-dev, npm run dev (to run), npm i mongoose, npm i -D @types/mongoose
 
 import { ChildProcess } from "child_process";
+import { error } from "console";
 import exp from "constants";
 import express from "express";
-
+import './db';
+  
 const app = express(); //express object
 
 //using the same MIDDLEWARE FUNCTION FOR EVERY ENDPOINT
@@ -16,8 +19,7 @@ const app = express(); //express object
 app.use(express.json());
 
 //this will parse post request coming from html form
-app.use(express.urlencoded({extended: false}));
-
+app.use(express.urlencoded({ extended: false }));
 
 //MIDDLEWARE FUNTION - cum funtioneaza
 /* app.use((req, res, next) => {
@@ -31,11 +33,10 @@ app.use(express.urlencoded({extended: false}));
   })
  */
 
-
 app.post(
   "/",
   // next() => move to next funtion
-  
+
   (req, res) => {
     //get method (route, request, response)
     //res.send('<h1>Hello World</h1>')
