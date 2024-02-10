@@ -8,7 +8,7 @@ import { error } from "console";
 import exp from "constants";
 import express from "express";
 import "./db";
-import Note from "./models/node";
+import Note, { NoteDocument } from "./models/node";
 
 const app = express(); //express object
 
@@ -48,17 +48,27 @@ app.post(
   }
 );
 
+interface incomingBody {
+  title: string;
+  description?: string;
+}
+
 app.post("/create", async (req, res) => {
   //get method (route, request, response)
   //res.send('<h1>Hello World</h1>')
 
   //here we need data so that we can create new note/todo
-  const newNote = new Note({
-    title: req.body.title,
-    description: req.body.description,
+  // const newNote = new Note<NoteDocument>({
+  //   title: (req.body as incomingBody).title,
+  //   description: (req.body as incomingBody).description,
+  // });
+  // await newNote.save()
+
+  await Note.create<NoteDocument>({
+    title: (req.body as incomingBody).title,
+    description: (req.body as incomingBody).description,
   });
 
-  await newNote.save()
   res.json({ message: "I am listening! to create" });
 });
 
