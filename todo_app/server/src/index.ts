@@ -7,8 +7,9 @@ import { ChildProcess } from "child_process";
 import { error } from "console";
 import exp from "constants";
 import express from "express";
-import './db';
-  
+import "./db";
+import Note from "./models/node";
+
 const app = express(); //express object
 
 //using the same MIDDLEWARE FUNCTION FOR EVERY ENDPOINT
@@ -47,12 +48,17 @@ app.post(
   }
 );
 
-app.post("/create", (req, res) => {
+app.post("/create", async (req, res) => {
   //get method (route, request, response)
   //res.send('<h1>Hello World</h1>')
 
   //here we need data so that we can create new note/todo
-  console.log(req.body);
+  const newNote = new Note({
+    title: req.body.title,
+    description: req.body.description,
+  });
+
+  await newNote.save()
   res.json({ message: "I am listening! to create" });
 });
 
