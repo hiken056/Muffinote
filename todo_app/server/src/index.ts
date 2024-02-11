@@ -74,13 +74,15 @@ app.post("/create", async (req, res) => {
 
 app.patch("/:noteId", async (req, res) => {
   const {noteId} = req.params;
-  const note = await Note.findById(noteId)
-  if (!note) return res.json({error: "Note not found!"});
+  // const note = await Note.findById(noteId)
+  // if (!note) return res.json({error: "Note not found!"});
 
   const {title, description} = req.body as incomingBody
-  if (title) note.title = title;
-  if (description) note.description = description;
+  // if (title) note.title = title;
+  // if (description) note.description = description;
 
+  const note = await Note.findByIdAndUpdate(noteId, {title, description}, {new: true})
+  if (!note) return res.json({error: "Note not found!"});
   await note.save()
 
   res.json ({note});
