@@ -73,27 +73,45 @@ app.post("/create", async (req, res) => {
 });
 
 app.patch("/:noteId", async (req, res) => {
-  const {noteId} = req.params;
+  const { noteId } = req.params;
   // const note = await Note.findById(noteId)
   // if (!note) return res.json({error: "Note not found!"});
 
-  const {title, description} = req.body as incomingBody
+  const { title, description } = req.body as incomingBody;
   // if (title) note.title = title;
   // if (description) note.description = description;
 
-  const note = await Note.findByIdAndUpdate(noteId, {title, description}, {new: true})
-  if (!note) return res.json({error: "Note not found!"});
-  await note.save()
+  const note = await Note.findByIdAndUpdate(
+    noteId,
+    { title, description },
+    { new: true }
+  );
+  if (!note) return res.json({ error: "Note not found!" });
+  await note.save();
 
-  res.json ({note});
-})
+  res.json({ note });
+});
+
+app.delete("/:noteId", async (req, res) => {
+  const { noteId } = req.params;
+
+  const removedNote = await Note.findByIdAndDelete(noteId);
+  if (!removedNote) return res.json({ error: "Couldn't remove note" });
+  res.json({ message: "Note removed succesfully!" });
+});
 
 // LISTEN TO SOME PORT
+
+app.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const note = await Note.findById(id);
+
+  if (!note) return res.json("errror: Note not found!");
+  res.json({ note });
+});
 
 app.listen(8000, () => {
   //8000-port
   console.log("listening");
 });
-
-//tsc (compiling ts file)
-//node index.js (running js file)
