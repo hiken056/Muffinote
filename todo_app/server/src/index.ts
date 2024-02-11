@@ -72,6 +72,20 @@ app.post("/create", async (req, res) => {
   res.json({ message: "I am listening! to create" });
 });
 
+app.patch("/:noteId", async (req, res) => {
+  const {noteId} = req.params;
+  const note = await Note.findById(noteId)
+  if (!note) return res.json({error: "Note not found!"});
+
+  const {title, description} = req.body as incomingBody
+  if (title) note.title = title;
+  if (description) note.description = description;
+
+  await note.save()
+
+  res.json ({note});
+})
+
 // LISTEN TO SOME PORT
 
 app.listen(8000, () => {
