@@ -10,6 +10,8 @@ import express from "express";
 import "./db";
 import Note, { NoteDocument } from "./models/node";
 import { create, readAllNotes, readSingleNote, removeSingleNote, updateSingleNote } from "./controllers/note";
+import noteRouter from './routers/note'
+
 
 const app = express(); //express object
 
@@ -54,20 +56,8 @@ interface incomingBody {
   description?: string;
 }
 
-app.post("/create", create);
 
-app.patch("/:noteId", updateSingleNote)
-
-
-app.delete("/:noteId", removeSingleNote)
-
-//get all the notes
-app.get("/", readAllNotes)
-
-//get note by id
-app.get("/:id", readSingleNote);
-
-
+app.use(noteRouter) 
 // LISTEN TO SOME PORT
 
 app.listen(8000, () => {
