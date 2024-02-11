@@ -9,6 +9,7 @@ import exp from "constants";
 import express from "express";
 import "./db";
 import Note, { NoteDocument } from "./models/node";
+import { create, readAllNotes, readSingleNote, removeSingleNote, updateSingleNote } from "./controllers/note";
 
 const app = express(); //express object
 
@@ -53,63 +54,21 @@ interface incomingBody {
   description?: string;
 }
 
-app.post("/create", async (req, res) => {
-  //get method (route, request, response)
-  //res.send('<h1>Hello World</h1>')
+app.post("/create", create);
 
-  //here we need data so that we can create new note/todo
-  // const newNote = new Note<NoteDocument>({
-  //   title: (req.body as incomingBody).title,
-  //   description: (req.body as incomingBody).description,
-  // });
-  // await newNote.save()
+app.patch("/:noteId", updateSingleNote)
 
-  await Note.create<NoteDocument>({
-    title: (req.body as incomingBody).title,
-    description: (req.body as incomingBody).description,
-  });
 
-  res.json({ message: "I am listening! to create" });
-});
+app.delete("/:noteId", removeSingleNote)
 
-app.patch("/:noteId", async (req, res) => {
-  const { noteId } = req.params;
-  // const note = await Note.findById(noteId)
-  // if (!note) return res.json({error: "Note not found!"});
+//get all the notes
+app.get("/", readAllNotes)
 
-  const { title, description } = req.body as incomingBody;
-  // if (title) note.title = title;
-  // if (description) note.description = description;
+//get note by id
+app.get("/:id", readSingleNote);
 
-  const note = await Note.findByIdAndUpdate(
-    noteId,
-    { title, description },
-    { new: true }
-  );
-  if (!note) return res.json({ error: "Note not found!" });
-  await note.save();
-
-  res.json({ note });
-});
-
-app.delete("/:noteId", async (req, res) => {
-  const { noteId } = req.params;
-
-  const removedNote = await Note.findByIdAndDelete(noteId);
-  if (!removedNote) return res.json({ error: "Couldn't remove note" });
-  res.json({ message: "Note removed succesfully!" });
-});
 
 // LISTEN TO SOME PORT
-
-app.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
-  const note = await Note.findById(id);
-
-  if (!note) return res.json("errror: Note not found!");
-  res.json({ note });
-});
 
 app.listen(8000, () => {
   //8000-port
