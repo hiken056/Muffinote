@@ -1,19 +1,9 @@
-import React from "react";
-import "./App.css";
-
-
-function App(props: {name:string}) {
+const App = () => {
   return (
-      <div className = "App" onClick={() => console.log("you just clicked")}>
-        <h1>Hello world! {props.name}</h1>
-      </div>
-  )
-
-  // return React.createElement(
-  //   "div",
-  //   { className: "App" },
-  //   React.createElement("h1", null, "Hello World!")
-  // );
-}
+    <div>
+      <h1>Hello World!</h1>
+    </div>
+  );
+};
 
 export default App;
