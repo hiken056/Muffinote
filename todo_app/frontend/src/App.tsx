@@ -18,6 +18,17 @@ const App = () => {
       <div className="text-center">
         <button className="bg-blue-500 text-white px-5 py-2 rounded-md">Submit</button>
       </div>
+
+
+      {/* Note Items */} 
+      <div>
+        <p className="font-semibold text-gray-700 text-lg">Lorem ipsum dolor sit amet.</p>
+        <div className="space-x-4">
+          <button className="bg-blue-500 text-white p-2 rounded"  >View</button>
+          <button className="bg-gray-700 text-white p-2 rounded" >Edit</button>
+          <button className="bg-red-500 text-white p-2 rounded" >Delete</button>
+        </div>
+      </div>
     </div>
   );
 };
