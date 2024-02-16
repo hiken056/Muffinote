@@ -1,3 +1,5 @@
+import NoteItem from "./components/NoteItem";
+
 const App = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -10,6 +12,9 @@ const App = () => {
             placeholder="Title"
           />
         </div>
+
+
+
         <div>
           <textarea
             className="w-full border-b-2 border-gray-700 outline-none resize-none h-36"
@@ -22,39 +27,16 @@ const App = () => {
           </button>
         </div>
       </div>
-      <div className = "b-white shadow-md rounded p-5">
-        {/* Note Items */}
-        <p className="font-semibold text-gray-700 text-lg mb-4">
-          Lorem ipsum dolor sit amet.
-        </p>
-        <div className="space-x-4">
-          <button className="bg-blue-500 text-white p-2 rounded">View</button>
-          <button className="bg-gray-700 text-white p-2 rounded">Edit</button>
-          <button className="bg-red-500 text-white p-2 rounded">Delete</button>
-        </div>
-      </div>
-      <div className = "b-white shadow-md rounded p-5">
-        {/* Note Items */}
-        <p className="font-semibold text-gray-700 text-lg mb-4">
-          Lorem ipsum dolor sit amet.
-        </p>
-        <div className="space-x-4">
-          <button className="bg-blue-500 text-white p-2 rounded">View</button>
-          <button className="bg-gray-700 text-white p-2 rounded">Edit</button>
-          <button className="bg-red-500 text-white p-2 rounded">Delete</button>
-        </div>
-      </div>
-      <div className = "b-white shadow-md rounded p-5">
-        {/* Note Items */}
-        <p className="font-semibold text-gray-700 text-lg mb-4">
-          Lorem ipsum dolor sit amet.
-        </p>
-        <div className="space-x-4">
-          <button className="bg-blue-500 text-white p-2 rounded">View</button>
-          <button className="bg-gray-700 text-white p-2 rounded">Edit</button>
-          <button className="bg-red-500 text-white p-2 rounded">Delete</button>
-        </div>
-      </div>
+
+      <NoteItem title="My first re-usable component"/>
+
+      <NoteItem title="Lorem"/>
+
+      <NoteItem title="YAsss"/>
+
+      <NoteItem title="biscuiti"/>
+
+      
     </div>
   );
 };
