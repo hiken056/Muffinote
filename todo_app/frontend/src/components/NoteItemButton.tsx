@@ -3,9 +3,10 @@ import { FC } from "react";
 interface NoteItemButtonProps {
   title: string;
   type?: "danger" | "normal" | "regular";
+  onClick? () : void 
 }
 
-const NoteItemButton: FC<NoteItemButtonProps> = ({ title, type }) => {
+const NoteItemButton: FC<NoteItemButtonProps> = ({ title, type, onClick }) => {
   let color = "";
   switch (type) {
     case "danger":
@@ -19,7 +20,7 @@ const NoteItemButton: FC<NoteItemButtonProps> = ({ title, type }) => {
       break;
   }
   return (
-    <button className={color + " text-white p-2 rounded"}> {title} </button>
+    <button  onClick = {onClick} className={color + " text-white p-2 rounded"}> {title} </button>
   );
 };
 

@@ -12,7 +12,9 @@ const NoteItem: FC < NoteItemProps > = ({title}) => {
       {title}
     </p>
     <div className="space-x-4">
-        <NoteItemButton title='View' type='regular' />
+        <NoteItemButton title='View' type='regular' onClick={() => {
+            console.log("clicked");
+        }}/>
         <NoteItemButton title='Edit' type='normal'/>
         <NoteItemButton title='Delete' type='danger'/>
     </div>
