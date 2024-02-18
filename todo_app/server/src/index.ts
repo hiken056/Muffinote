@@ -11,9 +11,12 @@ import "./db";
 import Note, { NoteDocument } from "./models/node";
 import { create, readAllNotes, readSingleNote, removeSingleNote, updateSingleNote } from "./controllers/note";
 import noteRouter from './routers/note'
+import cors from 'cors'
 
 
 const app = express(); //express object
+
+app.use(cors());
 
 //using the same MIDDLEWARE FUNCTION FOR EVERY ENDPOINT
 

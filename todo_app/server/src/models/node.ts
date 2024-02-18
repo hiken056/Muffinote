@@ -21,4 +21,4 @@ const noteSchema = new Schema({
 });
 
 
-export default model<NoteDocument>("Note", noteSchema);
+export default model<NoteDocument>("note", noteSchema);

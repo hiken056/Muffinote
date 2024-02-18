@@ -4,18 +4,18 @@ const { Router } = require("express");
 
 const router = Router();
 
-router.post("/create", create);
+router.post("/note/create", create);
 
-router.patch("/:noteId", updateSingleNote)
+router.patch("/note/:noteId", updateSingleNote)
 
 
-router.delete("/:noteId", removeSingleNote)
+router.delete("/note/:noteId", removeSingleNote)
 
 //get all the notes
-router.get("/", readAllNotes)
+router.get("/note/", readAllNotes)
 
 //get note by id
-router.get("/:id", readSingleNote);
+router.get("/note/:id", readSingleNote);
 
 
 
