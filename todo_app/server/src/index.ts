@@ -60,7 +60,7 @@ interface incomingBody {
 }
 
 
-app.use(noteRouter) 
+app.use("/note", noteRouter); 
 // LISTEN TO SOME PORT
 
 app.listen(8000, () => {

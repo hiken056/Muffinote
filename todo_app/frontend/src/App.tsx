@@ -29,7 +29,12 @@ const App = () => {
   };
 
   useEffect(() => {
-    console.log("i am running");
+    const fetchNotes = async () => {
+      //call the api and fetch notes
+      const {data} = await axios("http://localhost:8000/note");
+      setNotes(data.notes);
+    };
+    fetchNotes();
   }, []);
 
   return (
@@ -54,7 +59,7 @@ const App = () => {
       >
         <div>
           <span>{count}</span>
-          <button type = "button" onClick={() => setCount(count + 1)}>
+          <button type="button" onClick={() => setCount(count + 1)}>
             Click me
           </button>
         </div>
@@ -87,7 +92,7 @@ const App = () => {
       </form>
 
       {notes.map((note) => {
-        return <NoteItem key={note.title} title={note.title} />;
+        return <NoteItem key={note.id} title={note.title} />;
       })}
     </div>
   );
