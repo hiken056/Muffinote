@@ -1,5 +1,7 @@
 import NoteItem from "./components/NoteItem";
 import React, { useState, ChangeEventHandler } from "react";
+import axios from "axios";
+import { describe } from "node:test";
 
 const App = () => {
   // const [title, setTitle] = useState("");
@@ -12,14 +14,24 @@ const App = () => {
 
   const handleChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
-  > = ({target}) => {
+  > = ({ target }) => {
     const { name, value } = target;
     setValues({ ...values, [name]: value });
   };
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      <div className=" space-y-6  bg-white shadow-md rounded p-5">
+      <form
+        onSubmit={ async (evt) => {
+          evt.preventDefault();
+          const {data} = await axios.post('http://localhost:8000/note/create', {
+            title: values.title,
+            description: values.description
+          });
+          console.log(data);
+        }}
+        className=" space-y-6  bg-white shadow-md rounded p-5"
+      >
         <h1 className=" font-semibold text-2xl text-center">Note Aplication</h1>
         <div>
           <input
@@ -42,16 +54,11 @@ const App = () => {
           ></textarea>
         </div>
         <div className="text-center">
-          <button
-            onClick={() => {
-              console.log(values);
-            }}
-            className="bg-blue-500 text-white px-5 py-2 rounded-md"
-          >
+          <button className="bg-blue-500 text-white px-5 py-2 rounded-md">
             Submit
           </button>
         </div>
-      </div>
+      </form>
 
       <NoteItem title="My first re-usable component" />
 
