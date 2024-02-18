@@ -7,6 +7,14 @@ const App = () => {
   // const [title, setTitle] = useState("");
   // const [description, setDescription] = useState("");
 
+  const [notes, setNotes] = useState<
+    {
+      id: string;
+      title: string;
+      description?: string;
+    }[]
+  >([]);
+
   const [values, setValues] = useState({
     title: "",
     description: "",
@@ -22,13 +30,20 @@ const App = () => {
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <form
-        onSubmit={ async (evt) => {
+        onSubmit={async (evt) => {
           evt.preventDefault();
-          const {data} = await axios.post('http://localhost:8000/note/create', {
-            title: values.title,
-            description: values.description
+          const { data } = await axios.post(
+            "http://localhost:8000/note/create",
+            {
+              title: values.title,
+              description: values.description,
+            }
+          );
+          setNotes([data.note, ...notes]);
+          setValues({
+            title: "",
+            description: "",
           });
-          console.log(data);
         }}
         className=" space-y-6  bg-white shadow-md rounded p-5"
       >
@@ -60,13 +75,9 @@ const App = () => {
         </div>
       </form>
 
-      <NoteItem title="My first re-usable component" />
-
-      <NoteItem title="Lorem" />
-
-      <NoteItem title="YAsss" />
-
-      <NoteItem title="biscuiti" />
+      {notes.map((note) => {
+        return <NoteItem key={note.title} title={note.title} />;
+      })}
     </div>
   );
 };

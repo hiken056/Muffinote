@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import Note, { NoteDocument } from "../models/node";
+import { title } from "process";
 
 export interface incomingBody {
   title: string;
@@ -11,18 +12,24 @@ export const create: RequestHandler = async (req, res) => {
   //res.send('<h1>Hello World</h1>')
 
   //here we need data so that we can create new note/todo
-  // const newNote = new Note<NoteDocument>({
-  //   title: (req.body as incomingBody).title,
-  //   description: (req.body as incomingBody).description,
-  // });
-  // await newNote.save()
-
-  await Note.create<NoteDocument>({
+  const newNote = new Note<NoteDocument>({
     title: (req.body as incomingBody).title,
     description: (req.body as incomingBody).description,
   });
+  await newNote.save()
 
-  res.json({ message: "I am listening! to create" });
+  // await Note.create<NoteDocument>({
+  //   title: (req.body as incomingBody).title,
+  //   description: (req.body as incomingBody).description,
+  // });
+
+  res.json({
+    note: {
+      id: newNote._id,
+      title: newNote.title,
+      description: newNote.description
+    },
+  });
 };
 
 export const updateSingleNote: RequestHandler = async (req, res) => {
@@ -53,11 +60,10 @@ export const removeSingleNote: RequestHandler = async (req, res) => {
   res.json({ message: "Note removed succesfully!" });
 };
 
-
-export const readAllNotes:RequestHandler = async (req, res) => {
+export const readAllNotes: RequestHandler = async (req, res) => {
   const notes = await Note.find();
-  res.json({notes});
-}
+  res.json({ notes });
+};
 
 export const readSingleNote: RequestHandler = async (req, res) => {
   const { id } = req.params;
@@ -66,4 +72,4 @@ export const readSingleNote: RequestHandler = async (req, res) => {
 
   if (!note) return res.json("errror: Note not found!");
   res.json({ note });
-}
+};
