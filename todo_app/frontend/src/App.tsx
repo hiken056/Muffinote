@@ -1,5 +1,5 @@
 import NoteItem from "./components/NoteItem";
-import React, { useState, ChangeEventHandler } from "react";
+import React, { useState, ChangeEventHandler, useEffect } from "react";
 import axios from "axios";
 import { describe } from "node:test";
 
@@ -7,6 +7,7 @@ const App = () => {
   // const [title, setTitle] = useState("");
   // const [description, setDescription] = useState("");
 
+  const [count, setCount] = useState(0);
   const [notes, setNotes] = useState<
     {
       id: string;
@@ -26,6 +27,10 @@ const App = () => {
     const { name, value } = target;
     setValues({ ...values, [name]: value });
   };
+
+  useEffect(() => {
+    console.log("i am running");
+  }, []);
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
@@ -47,6 +52,12 @@ const App = () => {
         }}
         className=" space-y-6  bg-white shadow-md rounded p-5"
       >
+        <div>
+          <span>{count}</span>
+          <button type = "button" onClick={() => setCount(count + 1)}>
+            Click me
+          </button>
+        </div>
         <h1 className=" font-semibold text-2xl text-center">Note Aplication</h1>
         <div>
           <input
