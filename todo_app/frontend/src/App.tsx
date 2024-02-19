@@ -3,18 +3,19 @@ import React, { useState, ChangeEventHandler, useEffect } from "react";
 import axios from "axios";
 import { describe } from "node:test";
 
+type noteType = {
+  id: string;
+  title: string;
+  description?: string;
+};
+
 const App = () => {
   // const [title, setTitle] = useState("");
   // const [description, setDescription] = useState("");
 
   const [count, setCount] = useState(0);
-  const [notes, setNotes] = useState<
-    {
-      id: string;
-      title: string;
-      description?: string;
-    }[]
-  >([]);
+  const [noteToView, setNoteToView] = useState<noteType>();
+  const [notes, setNotes] = useState<noteType[]>([]);
 
   const [values, setValues] = useState({
     title: "",
@@ -112,6 +113,12 @@ const App = () => {
       {notes.map((note) => {
         return (
           <NoteItem
+            onViewClick={() => {
+              setNoteToView(note);
+            }}
+            description={
+              noteToView?.id === note.id ? noteToView?.description : ""
+            }
             onEditClick={() => {
               setSelectedNoteId(note.id);
               setValues({
@@ -125,12 +132,7 @@ const App = () => {
                 //delete
                 await axios.delete("http://localhost:8000/note/" + note.id);
 
-                const updatedNotes = notes.filter(({ id }) => {
-                  if (id !== note.id) {
-                    return note;
-                  }
-
-                });
+                const updatedNotes = notes.filter(({ id }) => id !== note.id);
                 setNotes([...updatedNotes]);
               }
             }}
