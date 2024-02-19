@@ -23,7 +23,7 @@ const NoteItem: FC<NoteItemProps> = ({
       {description ? <p className="ml-2 mb-3 py-3 text-lg">{description}</p> : null}
       <div className="space-x-4">
         <NoteItemButton
-          title="View"
+          title={description ? "Hide" : "View"}
           type="regular"
           onClick = {onViewClick}
         />
