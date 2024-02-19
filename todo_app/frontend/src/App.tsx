@@ -45,24 +45,24 @@ const App = () => {
         onSubmit={async (evt) => {
           evt.preventDefault();
 
-          if ( selectedNoteId) {
+          if (selectedNoteId) {
             //thann we want to update
             const { data } = await axios.patch(
               "http://localhost:8000/note/" + selectedNoteId,
               {
                 title: values.title,
                 description: values.description,
-              } 
+              }
             );
-            const updatedNotes =  notes.map((note) => {
+            const updatedNotes = notes.map((note) => {
               if (note.id == selectedNoteId) {
                 note.title = data.note.title;
                 note.description = data.note.description;
               }
-              return note 
-            })
-            
-            setValues({title: '', description: ''});
+              return note;
+            });
+
+            setValues({ title: "", description: "" });
             setNotes([...updatedNotes]);
             return;
           }
@@ -81,7 +81,6 @@ const App = () => {
         }}
         className=" space-y-6  bg-white shadow-md rounded p-5"
       >
-        
         <h1 className=" font-semibold text-2xl text-center">Note Aplication</h1>
         <div>
           <input
@@ -119,6 +118,21 @@ const App = () => {
                 title: note.title,
                 description: note.description || "",
               });
+            }}
+            onDeleteClick={async () => {
+              const result = confirm("Are you sure?");
+              if (result) {
+                //delete
+                await axios.delete("http://localhost:8000/note/" + note.id);
+
+                const updatedNotes = notes.filter(({ id }) => {
+                  if (id !== note.id) {
+                    return note;
+                  }
+
+                });
+                setNotes([...updatedNotes]);
+              }
             }}
             key={note.id}
             title={note.title}

@@ -3,10 +3,11 @@ import NoteItemButton from './NoteItemButton';
 
 interface NoteItemProps {
     title?: string;
-    onEditClick() : void;
+    onEditClick?() : void;
+    onDeleteClick?() :void;
 }
 
-const NoteItem: FC < NoteItemProps > = ({title, onEditClick}) => {
+const NoteItem: FC < NoteItemProps > = ({title, onEditClick, onDeleteClick}) => {
     return  <div className = "b-white shadow-md rounded p-5">
     {/* Note Items */}
     <p className="font-semibold text-gray-700 text-lg mb-4">
@@ -17,7 +18,7 @@ const NoteItem: FC < NoteItemProps > = ({title, onEditClick}) => {
             console.log("clicked");
         }}/>
         <NoteItemButton onClick = {onEditClick} title='Edit' type='normal'/>
-        <NoteItemButton title='Delete' type='danger'/>
+        <NoteItemButton onClick = {onDeleteClick} title='Delete' type='danger'/>
     </div>
   </div>
 }
