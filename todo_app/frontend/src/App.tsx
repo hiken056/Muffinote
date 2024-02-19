@@ -21,6 +21,8 @@ const App = () => {
     description: "",
   });
 
+  const [selectedNoteId, setSelectedNoteId] = useState<any | null>(null);
+
   const handleChange: ChangeEventHandler<
     HTMLInputElement | HTMLTextAreaElement
   > = ({ target }) => {
@@ -31,7 +33,7 @@ const App = () => {
   useEffect(() => {
     const fetchNotes = async () => {
       //call the api and fetch notes
-      const {data} = await axios("http://localhost:8000/note");
+      const { data } = await axios("http://localhost:8000/note");
       setNotes(data.notes);
     };
     fetchNotes();
@@ -42,6 +44,20 @@ const App = () => {
       <form
         onSubmit={async (evt) => {
           evt.preventDefault();
+
+          if ( selectedNoteId) {
+            //thann we want to update
+            const { data } = await axios.patch(
+              "http://localhost:8000/note/" + selectedNoteId,
+              {
+                title: values.title,
+                description: values.description,
+              }
+            );
+
+            console.log(data.note)
+            return;
+          }
           const { data } = await axios.post(
             "http://localhost:8000/note/create",
             {
@@ -57,12 +73,7 @@ const App = () => {
         }}
         className=" space-y-6  bg-white shadow-md rounded p-5"
       >
-        <div>
-          <span>{count}</span>
-          <button type="button" onClick={() => setCount(count + 1)}>
-            Click me
-          </button>
-        </div>
+        
         <h1 className=" font-semibold text-2xl text-center">Note Aplication</h1>
         <div>
           <input
@@ -92,7 +103,19 @@ const App = () => {
       </form>
 
       {notes.map((note) => {
-        return <NoteItem key={note.id} title={note.title} />;
+        return (
+          <NoteItem
+            onEditClick={() => {
+              setSelectedNoteId(note.id);
+              setValues({
+                title: note.title,
+                description: note.description || "",
+              });
+            }}
+            key={note.id}
+            title={note.title}
+          />
+        );
       })}
     </div>
   );

@@ -3,9 +3,10 @@ import NoteItemButton from './NoteItemButton';
 
 interface NoteItemProps {
     title?: string;
+    onEditClick() : void;
 }
 
-const NoteItem: FC < NoteItemProps > = ({title}) => {
+const NoteItem: FC < NoteItemProps > = ({title, onEditClick}) => {
     return  <div className = "b-white shadow-md rounded p-5">
     {/* Note Items */}
     <p className="font-semibold text-gray-700 text-lg mb-4">
@@ -15,7 +16,7 @@ const NoteItem: FC < NoteItemProps > = ({title}) => {
         <NoteItemButton title='View' type='regular' onClick={() => {
             console.log("clicked");
         }}/>
-        <NoteItemButton title='Edit' type='normal'/>
+        <NoteItemButton onClick = {onEditClick} title='Edit' type='normal'/>
         <NoteItemButton title='Delete' type='danger'/>
     </div>
   </div>
