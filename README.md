@@ -8,10 +8,12 @@
 
 ### To be able to use this you need:
 ### 1. mongoDB - community editon to run the backend locally
-### 2. vite - frontend tool
-### 3. npm - js library
+### 2. npm - js library
 
 ## USING THE APP:
+
+### To install all the packages run in the server folder the command: npm i
+
 
 ### 1. In frontend folder:
 ### npm run dev
